@@ -1,0 +1,27 @@
+Description du projet:
+Devs On Deck is a web platform designed to connect software developers with companies looking to fill development roles. Developers create detailed profiles showcasing their skills, programming languages, frameworks, and libraries, while organizations post job openings and search for matching candidates based on skills.
+
+
+Technology Stack: MERN
+Frontend: React.js
+Backend: Node.js with Express.js
+Database: MongoDB
+Authentication: JWT (JSON Web Tokens)
+Version Control: GitHub : https://github.com/jarray-kais/Devs-On-Deck
+
+
+Key Features
+-Authentication & Profiles:
+Secure sign-up and login for developers and organizations
+Developer profiles with skill selection (languages, frameworks, libraries)
+Organization profiles with job posting management
+-Developer Skill Management:
+Pick top 5 programming languages
+Pick top 5 frameworks or libraries
+Short bio introduction
+Profile completion progress bar
+Matching & Dashboard
+List available jobs for developers
+List available developers for organizations
+Match scoring based on skill overlap
+Consider “apply” feature for developers
