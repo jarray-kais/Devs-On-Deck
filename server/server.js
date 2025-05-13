@@ -9,15 +9,24 @@ import {
     normalizeErrors,
     notFoundHandler,
 } from "./util/ErrorExtractor.js";
-
+import userRouter from "./routes/user.routes.js";
+import organizationRouter from "./routes/organization.route.js";
+import positionRouter from "./routes/Position.route.js";
+import applicationRouter from "./routes/Application.routes.js";
 dotenv.config();
 const app = express();
-app.use(cors());
-app.use(helmet());
+dbconnect();
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-dbconnect();
+app.use(cors());
+app.use(helmet());
+
+
+app.use("/api/users", userRouter);
+app.use("/api/organizations", organizationRouter);
+app.use("/api/positions", positionRouter);
+app.use("/api/applications", applicationRouter);
 
 app.use(normalizeErrors);
 app.use(notFoundHandler);

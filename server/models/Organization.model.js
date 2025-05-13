@@ -1,3 +1,4 @@
+import bcrypt from "bcryptjs";
 import { model, Schema } from "mongoose";
 
 const OrganizationSchema = new Schema(
@@ -8,11 +9,22 @@ const OrganizationSchema = new Schema(
       minlength: [2, "Organization name must be at least 2 characters"],
       maxlength: [255, "Organization name must be less than 255 characters"],
     },
+    email: {
+      type: String,
+      required: [true, "Email is required"],
+      validate: {
+        validator: (val) => /^([\w-\.]+@([\w-]+\.)+[\w-]+)?$/.test(val),
+        message: "Please enter a valid email",
+      },
+    },
+    password: {
+      type: String,
+      required: [true, "Password is required"],
+      minlength: [8, "Password must be 8 characters or longer"],
+    },
     description: {
       type: String,
       required: [true, "Description is required"],
-      minlength: [10, "Description must be at least 10 characters"],
-      maxlength: [1000, "Description must be less than 1000 characters"],
     },
     website: {
       type: String,
@@ -40,20 +52,53 @@ const OrganizationSchema = new Schema(
       required: [true, "Logo is required"],
     },
     location: {
-      address: String,
-      city: String,
-      state: String,
+      address: {
+        type: String,
+        required: [true, "Address is required"],
+      },
+      city: {
+        type: String,
+        required: [true, "City is required"],
+      },
+      state: {
+        type: String,
+        required: [true, "State is required"],
+      },
       country: String,
       zipCode: String,
     },
-    socialMedia: {
-      linkedin: String,
-      twitter: String,
-      facebook: String,
-    }
+    isOrganization: {
+      type: Boolean,
+      default: true,
+    },
   },
   { timestamps: true }
 );
+
+OrganizationSchema.virtual("confirmPassword")
+  .get(function () {
+    return this._confirmPassword;
+  })
+  .set(function (value) {
+    this._confirmPassword = value;
+  });
+
+  OrganizationSchema.pre("validate", function (next) {
+  if (this.password !== this.confirmPassword) {
+    this.invalidate("confirmPassword", "Password must match confirm password");
+  }
+  next();
+
+});
+
+OrganizationSchema.pre('save', function(next) {
+    bcrypt.hash(this.password, 10)
+      .then(hash => {
+        this.password = hash;
+        next();
+      });
+  });
+
 
 const Organization = model("Organization", OrganizationSchema);
 export default Organization; 

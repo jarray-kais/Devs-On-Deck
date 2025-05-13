@@ -21,10 +21,10 @@ const PositionSchema = new Schema(
       },
     ],
     contractType: {
-      type: String,
+      type: [String],
       enum: {
         values: ["CDI", "CDD", "Freelance", "Stage", "Alternance"],
-        message: '{VALUE} is not a valid contract type. Valid types are: CDI, CDD, Freelance, Internship, Apprenticeship,'
+        message: '{VALUE} is not a valid contract type. Valid types are: CDI, CDD, Freelance, Internship,'
       },
       required: true,
     },
@@ -44,7 +44,6 @@ const PositionSchema = new Schema(
     createdBy: {
       type: Schema.Types.ObjectId,
       ref: "User",
-      required: true,
     },
   },
   { timestamps: true }

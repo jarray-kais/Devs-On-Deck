@@ -12,6 +12,11 @@ const ApplicationSchema = new Schema(
       ref: "User",
       required: true,
     },
+    organization: {
+      type: Schema.Types.ObjectId,
+      ref: "Organization",
+      required: true,
+    },
     cv: {
       type: String, 
       required: true,

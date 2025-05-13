@@ -50,13 +50,9 @@ const UserSchema = new Schema(
       type: String,
       required: [true, "image is required"],
     },
-    isOrganized : {
-      type: Boolean,
-      default: false,
-    },
     isDeveloper : {
       type: Boolean,
-      default: false,
+      default: true,
     },
     skills: {
       type: [String],
@@ -68,13 +64,6 @@ const UserSchema = new Schema(
       maxlength: [500, "Bio must be less than 500 characters"],
       required: function() { return this.isDeveloper === true; }
     },
-    organization: {
-      type: Schema.Types.ObjectId,
-      ref: 'Organization',
-      required: function() {
-        return this.isOrganized === true;
-      }
-    }
   },
   { timestamps: true }
 );
