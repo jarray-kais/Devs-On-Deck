@@ -32,8 +32,8 @@ npm install
 3. **Configuration des variables d'environnement**
 Créez un fichier `.env` à la racine du projet avec les variables suivantes :
 ```env
-PORT=5000
-MONGODB_URI=mongodb://localhost:27017/devs-on-deck
+PORT= votre_PORT 
+MONGODB_URI=votre_MONGODB_URI
 SECRET_KEY=votre_secret_key
 CLOUDINARY_CLOUD_NAME=votre_cloud_name
 CLOUDINARY_API_KEY=votre_api_key
